@@ -1,0 +1,44 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">№</th>
+    <th scope="col">First Name</th>
+    <th scope="col">Last Name</th>
+    <th scope="col">Date of Birth</th>
+    <th scope="col">Email</th>
+    <th scope="col">Edit</th>
+    <th scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let user of users">
+  <tr>
+    <th scope="row">{{user._id}}</th>
+    <td> {{user.user_name}} </td>
+    <td>{{user.last_name}}</td>
+    <td>{{user.birth_date }}</td>
+    <td>{{user.email}}</td>
+    <td>
+      <button (click)="editing = editing==user._id?updateUser(user):user._id" type="button" class="btn btn-warning">{{editing==user._id?"OK":"Edit"}}</button>
+    </td>
+    <td>
+      <button (click)="delUser(user)" type="button" class="btn btn-danger ">Delete</button>
+    </td>
+  </tr>
+  <tr *ngIf="editing==user._id" >                                                                                         <!-- No new component because of HTML table structure -->
+    <th scope="row">{{user._id}}</th>
+    <td>  <input [(ngModel)]="user.user_name" placeholder="name"> </td>
+    <td> <input [(ngModel)]="user.last_name" placeholder="last name"></td>
+    <td><input [(ngModel)]="user.birth_date" placeholder="birthday"></td>
+    <td><input type="email" [(ngModel)]="user.email" placeholder="email"></td>
+  </tr>
+  </tbody>
+</table>
+
+<form class="form-group" [formGroup]="userForm" (submit)="createUser()">
+    <div *ngIf="!validForm" style="color: red">invalid data</div>
+    <input class="form-control" formControlName="user_name" type="text" placeholder="first name">
+    <input class="form-control" formControlName="last_name" type="text" placeholder="Last name">
+    <input class="form-control" formControlName="birth_date" type="text" placeholder="Birth Date(May 20 1993)">
+    <input class="form-control" formControlName="email" type="email" placeholder="Email">
+    <button  type="submit" class="btn btn-success">Create new user</button>
+</form>

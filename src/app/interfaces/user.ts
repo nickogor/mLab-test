@@ -1,6 +1,6 @@
 export class User {
-    id: number;
-    name: string;
+    _id: number;
+    user_name: string;
     last_name: string;
     birth_date: Date = new Date();
     email: string;
