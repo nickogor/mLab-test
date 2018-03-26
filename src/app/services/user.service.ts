@@ -15,10 +15,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<User[]> {
+  getUsers(): Observable<any> {
     return this.http.get(this.mLabUrl+"/databases/"+this.dbName+"/collections/user/?apiKey="+this.apiKey).pipe(
-        tap(heroes => console.log(`fetched heroes`)),
-        catchError(this.handleError('getUsers', []))
     );
   }
 

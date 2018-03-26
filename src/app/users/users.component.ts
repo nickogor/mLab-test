@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit {
 
 
 
-  constructor(private userService: UserService, fb: FormBuilder) {
+  constructor(private userService: UserService, private fb: FormBuilder) {
     this.userForm = fb.group({
           user_name: new FormControl('',Validators.required),
           last_name: new FormControl('',Validators.required),
@@ -44,11 +44,11 @@ export class UsersComponent implements OnInit {
 
   createUser(){
     let a: object;
-    let id: number = parseInt(this.users[this.users.length-1]._id)+1;
+    let id: number = this.users[this.users.length-1]._id;
     if (this.userForm.valid){
       this.validForm = true;
        a = {
-        _id: id,
+        _id: id+1,
         user_name: this.userForm.controls['user_name'].value,
         last_name: this.userForm.controls['last_name'].value,
         birth_date: this.userForm.controls['birth_date'].value,
@@ -57,7 +57,7 @@ export class UsersComponent implements OnInit {
     }else{
       this.validForm = false;
     }
-    this.users.push(a);
+    this.users.push(<User>a);
     this.userService.addUser(a);
   }
 
